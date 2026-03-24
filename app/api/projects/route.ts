@@ -35,6 +35,7 @@ const REPOS = [
   { owner: 'thegodshatetexas', repo: 'concerts-redeye' },
   { owner: 'red-claw', repo: 'happy-hour' },
   { owner: 'red-claw', repo: 'car-mod-app' },
+  { owner: 'red-claw', repo: 'redeye-dashboard' },
 ]
 
 function getGithubToken(): string | undefined {

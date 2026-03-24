@@ -39,9 +39,9 @@ interface StatusData {
 const DNS_DOMAINS: { domain: string; provider: string; expected: 'route53' | 'pending' }[] = [
   { domain: 'greghay.es', provider: 'Route53', expected: 'route53' },
   { domain: 'greghayes.com', provider: 'Route53', expected: 'route53' },
-  { domain: 'greghayes.co', provider: 'Pending', expected: 'pending' },
-  { domain: 'hayes-mfg.com', provider: 'Pending', expected: 'pending' },
-  { domain: 'thegodshatetexas.com', provider: 'Pending', expected: 'pending' },
+  { domain: 'greghayes.co', provider: 'Route53', expected: 'route53' },
+  { domain: 'hayes-mfg.com', provider: 'Route53', expected: 'route53' },
+  { domain: 'thegodshatetexas.com', provider: 'Route53', expected: 'route53' },
 ]
 
 const SSL_DOMAINS = [
@@ -50,6 +50,9 @@ const SSL_DOMAINS = [
   'mods.redeye.dev',
   'greghay.es',
   'greghayes.com',
+  'greghayes.co',
+  'hayes-mfg.com',
+  'thegodshatetexas.com',
 ]
 
 const SES_IDENTITIES: { identity: string; region: string }[] = [

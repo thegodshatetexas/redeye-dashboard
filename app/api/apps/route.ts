@@ -80,15 +80,16 @@ export async function GET(): Promise<NextResponse<AppsData | { error: string }>>
   const session = await auth()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const [modsStatus, happyHourStatus, concertsStatus, concertData] = await Promise.all([
+  const [modsStatus, happyHourStatus, concertsStatus, dashboardStatus, concertData] = await Promise.all([
     pingApp('mods.redeye.dev', 'https://mods.redeye.dev/health', true),
     pingApp('happyhour.redeye.dev', 'https://happyhour.redeye.dev/'),
     pingApp('concerts.redeye.dev', 'https://concerts.redeye.dev/'),
+    pingApp('dashboard.redeye.dev', 'https://dashboard.redeye.dev/login'),
     countUpcomingConcerts(),
   ])
 
   return NextResponse.json({
-    apps: [modsStatus, happyHourStatus, concertsStatus],
+    apps: [modsStatus, happyHourStatus, concertsStatus, dashboardStatus],
     upcomingConcerts: concertData.count,
     concertError: concertData.error,
   })
