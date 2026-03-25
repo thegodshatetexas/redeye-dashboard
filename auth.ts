@@ -10,6 +10,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
+  cookies: {
+    sessionToken: {
+      name: 'authjs.session-token',
+      options: {
+        httpOnly: true,
+        sameSite: 'lax' as const,
+        path: '/',
+        secure: true,
+        // Shared across all *.redeye.dev subdomains
+        domain: process.env.SESSION_COOKIE_DOMAIN ?? undefined,
+      },
+    },
+  },
   callbacks: {
     signIn({ profile }) {
       return profile?.email === ALLOWED_EMAIL
