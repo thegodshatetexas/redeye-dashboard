@@ -24,6 +24,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
   },
   callbacks: {
+    authorized({ auth }) {
+      return !!auth?.user
+    },
     signIn({ profile }) {
       return profile?.email === ALLOWED_EMAIL
     },
