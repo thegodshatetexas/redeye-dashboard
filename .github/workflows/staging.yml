@@ -1,0 +1,17 @@
+name: Deploy (Staging)
+
+on:
+  push:
+    branches: [staging]
+
+jobs:
+  deploy:
+    uses: RedEyeDevelopment/.github/.github/workflows/deploy.yml@main
+    with:
+      app-name: "dashboard-redeye"
+      working-directory: "/var/www/staging/dashboard-redeye"
+      branch: staging
+    secrets:
+      DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
