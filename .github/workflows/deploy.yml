@@ -1,4 +1,4 @@
-name: Deploy to redeye-prod
+name: Deploy
 
 on:
   push:
@@ -6,32 +6,11 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Deploy to server
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
-          script: |
-            set -e
-            cd /var/www/dashboard.redeye.dev
-            git pull origin main
-            npm ci
-            npm run build
-            pm2 restart dashboard-redeye --update-env
-            echo "Deploy complete: $(date)"
+    uses: RedEyeDevelopment/.github/.github/workflows/deploy.yml@main
+    with:
+      app-name: 'dashboard-redeye'
+      working-directory: '/var/www/redeye-dashboard'
+    secrets:
+      DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
